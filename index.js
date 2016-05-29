@@ -51,6 +51,18 @@ app.post('/webhook/', function (req, res) {
           } else if (text[0] === 'min') {
             ans = parseInt(text[1], 0) < parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
             sendTextMessage(sender, ans)
+          } else if (text[0] === 'avg') {
+            text.splice(0, 1)
+            var result = text.reduce((prev, curr) => prev + parseInt(curr, 0), 0)
+            console.log(result)
+            answer = result / text.length
+            sendTextMessage(sender, answer)
+          }
+            if (event.message && event.message.text) {
+            var text = event.message.text;
+            sendTextMessage(sender, "ถามเหี้ยไรนักหนา");
+            console.log(text)
+          }
   }
 }
   res.sendStatus(200);
