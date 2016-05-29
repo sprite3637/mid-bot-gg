@@ -26,7 +26,7 @@ function sendTextMessage(sender, text) {
 app.use(bodyParser.json())
 
 app.get('/',function(req,res){
-  res.send('Hello World');
+  res.send('what up');
 })
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'token_bot') {
@@ -42,18 +42,19 @@ app.post('/webhook/', function (req, res) {
     var sender = event.sender.id;
     if (event.message && event.message.text) {
       var text = event.message.text.split(' ');
-            if (text[0] === 'sum') {
-              var ans = parseInt(text[1], 0) + parseInt(text[2], 0)
-              sendTextMessage(sender, ans)
-            } else if (text[0] === 'max') {
-              ans = parseInt(text[1], 0) > parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
-              sendTextMessage(sender, ans)
-            } else if (text[0] === 'min') {
-              ans = parseInt(text[1], 0) < parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
-              sendTextMessage(sender, ans)
-    }
+          if (text[0] === 'sum') {
+            var ans = parseInt(text[1], 0) + parseInt(text[2], 0)
+            sendTextMessage(sender, ans)
+          } else if (text[0] === 'max') {
+            ans = parseInt(text[1], 0) > parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
+            sendTextMessage(sender, ans)
+          } else if (text[0] === 'min') {
+            ans = parseInt(text[1], 0) < parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
+            sendTextMessage(sender, ans)
   }
+}
   res.sendStatus(200);
+}
 });
 
 app.set('port',(process.env.PORT || 5000))
