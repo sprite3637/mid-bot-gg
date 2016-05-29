@@ -57,13 +57,11 @@ app.post('/webhook/', function (req, res) {
             console.log(result)
             answer = result / text.length
             sendTextMessage(sender, answer)
+          } if (text[0] === event.message && event.message.text) {
+              var ans =  "ถามเหี้ยไรนักหนา"
+              sendTextMessage(sender, ans)
           }
-            if (event.message && event.message.text) {
-            var text = event.message.text;
-            sendTextMessage(sender, "ถามเหี้ยไรนักหนา");
-            console.log(text)
-          }
-  }
+  
 }
   res.sendStatus(200);
 }
