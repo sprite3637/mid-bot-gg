@@ -29,7 +29,7 @@ app.get('/',function(req,res){
   res.send('what up');
 })
 app.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === 'token_bot') {
+  if (req.query['hub.verify_token'] === 'bot_check') {
     res.send(req.query['hub.challenge']);
   } else {
     res.send('Error, wrong validation token');
@@ -43,20 +43,21 @@ app.post('/webhook/', function (req, res) {
     if (event.message && event.message.text) {
       var text = event.message.text.split(' ');
           if (text[0] === 'sum') {
-            var ans = parseInt(text[1], 0) + parseInt(text[2], 0)
-            sendTextMessage(sender, ans)
+            var answer = parseInt(text[1], 0) + parseInt(text[2], 0)
+            sendTextMessage(sender, answer)
           } else if (text[0] === 'max') {
-            ans = parseInt(text[1], 0) > parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
-            sendTextMessage(sender, ans)
+            answer = parseInt(text[1], 0) > parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
+            sendTextMessage(sender, answer)
           } else if (text[0] === 'min') {
-            ans = parseInt(text[1], 0) < parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
-            sendTextMessage(sender, ans)
-          } else if (text[0] === 'avg') {
+            answer = parseInt(text[1], 0) < parseInt(text[2], 0) ? parseInt(text[1], 0) : parseInt(text[2], 0)
+            sendTextMessage(sender, answer)
+          }else if (text[0] === 'avg') {
             text.splice(0, 1)
             var result = text.reduce((prev, curr) => prev + parseInt(curr, 0), 0)
             console.log(result)
             answer = result / text.length
             sendTextMessage(sender, answer)
+      }
 }
   res.sendStatus(200);
 }
